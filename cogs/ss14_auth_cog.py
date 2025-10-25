@@ -3,12 +3,8 @@ from disnake import TextInputStyle
 from disnake.ext import commands, tasks
 from disnake.ui import TextInput
 
-# from bot_init import ss14_db
+from bot_init import cfg, ss14_db
 from modules.get_creation_date import get_creation_date
-
-CHANNEL_AUTH_DISCORD_SS14_ID = 1429449486157090888
-AUTH_MESSAGE_ID = 1352243068220342362
-LOG_TECH_CHANNEL_ID = 1429449486157090888
 
 
 async def get_pinned_message(channel):
@@ -27,7 +23,6 @@ class NicknameModal(disnake.ui.Modal):
         components = [
             TextInput(
                 label="Введите UID SS14.(UID-ЭТО НЕ ИМЯ АККАУНТА)",
-                placeholder="Найти: MRP лобби → Привязать Discord → скопировать UID из окна",
                 custom_id="user_id_input",
                 style=TextInputStyle.short,
                 max_length=50,
@@ -40,7 +35,7 @@ class NicknameModal(disnake.ui.Modal):
 
         user_id_input = inter.text_values["user_id_input"].strip()
         discord_id = str(inter.author.id)
-        tech_channel = inter.bot.get_channel(LOG_TECH_CHANNEL_ID)
+        tech_channel = inter.bot.get_channel(cfg.LOG_TECH_CHANNEL_AUTH_ID)
 
         if tech_channel is None:
             print("Ошибка: tech_channel не найден. Проверь ID или права доступа.")
@@ -58,7 +53,7 @@ class NicknameModal(disnake.ui.Modal):
         user_id = user_id_input
 
         # Проверяем, есть ли пользователь в базе по user_id
-        player_data = "" #ss14_db.get_username_by_user_id(user_id)
+        player_data = ss14_db.get_username_by_user_id(user_id)
         if not player_data:
             try:
                 user = await inter.bot.fetch_user(discord_id)
@@ -77,26 +72,24 @@ class NicknameModal(disnake.ui.Modal):
             )
             return
 
-        # Далее — логика привязки, аналогичная твоей, с использованием user_id
-
         # Проверка, привязан ли уже
-        # if ss14_db.is_user_linked(user_id, discord_id):
-        #     try:
-        #         discord_user = await inter.bot.fetch_user(discord_id)
-        #         await discord_user.send(
-        #             "❌ Ваш аккаунт уже привязан! Повторная привязка невозможна."
-        #         )
-        #         await inter.send(
-        #             "❌ Ваш аккаунт уже привязан! Повторная привязка невозможна.",
-        #             ephemeral=True
-        #         )
-        #     except disnake.Forbidden:
-        #         print(f"⚠️ Не удалось отправить ЛС пользователю {discord_id}")
+        if ss14_db.is_user_linked(user_id, discord_id):
+            try:
+                discord_user = await inter.bot.fetch_user(discord_id)
+                await discord_user.send(
+                    "❌ Ваш аккаунт уже привязан! Повторная привязка невозможна."
+                )
+                await inter.send(
+                    "❌ Ваш аккаунт уже привязан! Повторная привязка невозможна.",
+                    ephemeral=True
+                )
+            except disnake.Forbidden:
+                print(f"⚠️ Не удалось отправить ЛС пользователю {discord_id}")
 
-        #     await tech_channel.send(
-        #         f"⚠️ Пользователь <@{discord_id}> пытался повторно привязать user_id **{user_id}**."
-        #     )
-        #     return
+            await tech_channel.send(
+                f"⚠️ Пользователь <@{discord_id}> пытался повторно привязать user_id **{user_id}**."
+            )
+            return
 
         # if ss14_db.is_user_linked(user_id, discord_id, "dev"):
         #     try:
@@ -118,11 +111,11 @@ class NicknameModal(disnake.ui.Modal):
 
         creation_date = get_creation_date(user_id)
 
-        # ss14_db.link_user_to_discord(user_id, discord_id)
+        ss14_db.link_user_to_discord(user_id, discord_id)
         # ss14_db.link_user_to_discord(user_id, discord_id, "dev")
 
         user = await inter.bot.fetch_user(discord_id)
-        userNamePlayer = "" # ss14_db.get_username_by_user_id(user_id)
+        userNamePlayer = ss14_db.get_username_by_user_id(user_id)
 
         await tech_channel.send(
             f"✅ **Привязка аккаунта**\n"
@@ -172,14 +165,15 @@ class SS14AuthCog(commands.Cog):
         Редактирует сообщение и активирует кнопку привязки аккаунта
         Если не находит его, то создаёт новое и закрепляет.
         """
-        channel = self.bot.get_channel(CHANNEL_AUTH_DISCORD_SS14_ID)  # ID канала
+        channel = self.bot.get_channel(cfg.CHANNEL_AUTH_DISCORD_SS14_ID)  # ID канала
         if channel:
             # await channel.purge(limit=10) # удаление 10 сообщений
             embed = disnake.Embed(
                 title="🔗 Привязка аккаунта SS14",
                 description=(
                     "Для игры на сервере вам необходимо привязать свой аккаунт SS14.\n"
-                    "Нажмите кнопку ниже, затем введите UID вашего аккаунта."
+                    "Нажмите кнопку ниже, затем введите UID вашего аккаунта.\n"
+                    "UID можно получить в при заходе на сервер."
                 ),
                 color=disnake.Color.blue(),
             )
@@ -195,7 +189,7 @@ class SS14AuthCog(commands.Cog):
                 )
             )
 
-            message_id = AUTH_MESSAGE_ID
+            message_id = cfg.AUTH_MESSAGE_ID
 
             try:
                 if message_id:

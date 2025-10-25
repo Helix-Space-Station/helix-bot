@@ -6,10 +6,24 @@ from disnake.ext import commands
 from disnake.ext.commands import Bot
 
 from config import Config
+from modules.database_manager import DatabaseManagerSS14
 
+# Инициализация бота
 intents = Intents.all()
 bot = Bot(command_prefix="$", intents=intents, help_command=None)
 cfg = Config()
+
+# Инициализация менеджера БД
+ss14_db = DatabaseManagerSS14()
+ss14_db.add_database(
+    name='main',
+    database=cfg.DB_DATABASE_SS14_MAIN,
+    user=cfg.DB_USER_SS14_MAIN,
+    password=cfg.DB_PASSWORD_SS14_MAIN,
+    host=cfg.DB_HOST_SS14_MAIN,
+    port=cfg.DB_PORT_SS14_MAIN
+)
+ss14_db.add_time_zone(cfg.MOSCOW_TIMEZONE)
 
 
 async def load_cogs():

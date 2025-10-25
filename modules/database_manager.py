@@ -4,9 +4,6 @@ from datetime import datetime
 import disnake
 import psycopg2
 
-# from config import (DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_USER,
-#                     MOSCOW_TIMEZONE) 
-
 class DatabaseManagerSS14:
     """
     Менеджер для работы с базами данных Space Station 14 (PostgreSQL).
@@ -26,23 +23,32 @@ class DatabaseManagerSS14:
     >>> db_manager = DatabaseManagerSS14()
     >>> player_data = db_manager.fetch_player_data("PlayerName")
     """
-    def __init__(self):
-        self.db_params = {
-            'main': {
-                'database': DB_DATABASE,
-                'user': DB_USER,
-                'password': DB_PASSWORD,
-                'host': DB_HOST,
-                'port': DB_PORT
-            },
-            'dev': {
-                'database': 'ss14_dev',
-                'user': DB_USER,
-                'password': DB_PASSWORD,
-                'host': DB_HOST,
-                'port': DB_PORT
-            }
+    def __init__(self, db_configs=None):
+        """
+        Parameters
+        ----------
+        db_configs : dict, optional
+            Словарь с конфигурациями БД. По умолчанию пустой.
+        """
+        self.db_params = db_configs or {}
+        self.time_zone = None
+
+    def add_database(self, name, database, user, password, host, port):
+        """Добавляет конфигурацию базы данных"""
+        self.db_params[name] = {
+            'database': database,
+            'user': user,
+            'password': password,
+            'host': host,
+            'port': port
         }
+
+
+    def add_time_zone(self, time_zone):
+        if time_zone:
+            self.time_zone = time_zone
+        else:
+            print("Time zone not set")
 
 
     def _get_connection(self, db_name='main'):
@@ -629,7 +635,7 @@ class DatabaseManagerSS14:
                     # Получение текущего времени (MSK)
                     unban_time = (
                         datetime
-                        .now(MOSCOW_TIMEZONE)
+                        .now(self.time_zone)
                         .strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + " +0300"
                     )
 
