@@ -15,13 +15,12 @@ disable=
     C0116,  # missing-function-docstring
 
 [BASIC]
-good-names=
-    i,j,k,ex,Run,_,
-    db,id,cfg,bot
+good-names=i,j,k,ex,Run,_,db,id,cfg,bot
 
 [DESIGN]
 max-args=8
 max-attributes=15
+max-public-methods=50
 
 [FORMAT]
 max-line-length=120
