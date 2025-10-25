@@ -21,11 +21,10 @@ class Config:
     """Класс для хранения конфигурационных переменных."""
     GUILD_ID = 1429449485536202795
     MY_USER_ID = 328502766622474240
+    LOG_CHANNEL_ID = 1429449486157090888
 
     DISCORD_BOT_TOKEN = get_env_variable("DISCORD_BOT_TOKEN")
     
-
-
     ROLE_WHITELISTS = {
         "head_administration_role": [
             1431407679670059162
