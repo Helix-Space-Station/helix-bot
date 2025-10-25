@@ -34,13 +34,13 @@ jobs:
                --rcfile=.pylintrc \
                --fail-under=7.0 \
                bot_init.py main.py config.py modules/
-    
+
     - name: Generate pylint report
       run: |
         mkdir -p pylint-reports
         pylint --output-format=text \
                --rcfile=.pylintrc \
-               bot_init.py main.py config.py modules/ > pylint-reports/report.txt || true
+               bot_init.py main.py config.py modules/ > pylint-reports/report.txt
         echo "Pylint analysis completed"
     
     - name: Upload pylint report
