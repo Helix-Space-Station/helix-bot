@@ -32,7 +32,7 @@ class TestDatabaseManager:
         db_manager = DatabaseManagerSS14()
         
         with pytest.raises(ValueError, match="База данных 'main' не настроена"):
-            db_manager.get_connection('main')
+            db_manager._get_connection('main')
 
 class TestConfig:
     def test_config_attributes(self):
