@@ -98,6 +98,7 @@ helix-bot/
 │
 ├── modules/
 │   ├── get_creation_date.py
+│   ├── database_manager.py
 │   └── check_roles.py
 │
 └── README.md
