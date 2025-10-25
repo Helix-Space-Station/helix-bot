@@ -7,6 +7,7 @@ import ast
 import os
 import sys
 
+
 def check_syntax(filepath):
     """Check Python file syntax"""
     try:

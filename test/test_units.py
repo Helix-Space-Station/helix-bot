@@ -1,11 +1,13 @@
-import pytest
-import sys
 import os
+import sys
+
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from modules.database_manager import DatabaseManagerSS14
 from config import Config
+from modules.database_manager import DatabaseManagerSS14
+
 
 class TestDatabaseManager:
     def test_initialization(self):
