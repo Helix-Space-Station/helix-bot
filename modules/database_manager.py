@@ -4,6 +4,7 @@ from datetime import datetime
 import disnake
 import psycopg2
 
+
 class DatabaseManagerSS14:
     """
     Менеджер для работы с базами данных Space Station 14 (PostgreSQL).
