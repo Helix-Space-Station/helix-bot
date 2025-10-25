@@ -58,7 +58,7 @@ class TestDatabaseManager:
 
         # Мокаем psycopg2.connect чтобы не пытаться подключаться к реальной БД
         with mock.patch('psycopg2.connect') as mock_connect:
-            db_manager.get_connection('main')
+            db_manager._get_connection('main')
             mock_connect.assert_called_once_with(**test_config['main'])
 
 class TestConfig:
