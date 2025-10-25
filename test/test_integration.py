@@ -1,13 +1,14 @@
-import pytest
-import sys
 import os
+import sys
+
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 def test_bot_initialization():
     """Test that bot initializes correctly with all dependencies"""
     from bot_init import bot, cfg, ss14_db
-    
+
     # Test bot configuration
     assert bot.command_prefix == '$'
     assert bot.help_command is None
