@@ -39,7 +39,7 @@ class TestDatabaseManager:
         db_manager = DatabaseManagerSS14()
         
         with pytest.raises(ValueError, match="База данных 'main' не настроена"):
-            db_manager.get_connection('main')
+            db_manager._get_connection('main')
 
     def test_get_connection_with_mock(self):
         """Test get_connection method with mock"""
