@@ -34,16 +34,9 @@ class DatabaseManagerSS14:
         self.db_params = db_configs or {}
         self.time_zone = None
 
-    def add_database(self, name, database, user, password, host, port):
+    def add_database(self, name, db_config):
         """Добавляет конфигурацию базы данных"""
-        self.db_params[name] = {
-            'database': database,
-            'user': user,
-            'password': password,
-            'host': host,
-            'port': port
-        }
-
+        self.db_params[name] = db_config
 
     def add_time_zone(self, time_zone):
         if time_zone:

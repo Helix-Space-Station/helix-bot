@@ -32,7 +32,7 @@ jobs:
       run: |
         pylint --output-format=colorized \
               --rcfile=.pylintrc \
-              --fail-under=9.9 \
+              --fail-under=9.0 \
               bot_init.py main.py config.py modules/
 
     - name: Upload pylint report

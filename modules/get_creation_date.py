@@ -9,7 +9,7 @@ def get_creation_date(uuid):
     """
     url = f"https://auth.spacestation14.com/api/query/userid?userid={uuid}"
     try:
-        response = requests.get(url)
+        response = requests.get(url=url, timeout=10)
         response.raise_for_status()
         data = response.json()
 
