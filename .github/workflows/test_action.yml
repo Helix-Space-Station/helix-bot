@@ -21,4 +21,4 @@ jobs:
 
       - name: Run comprehensive health check
         run: |
-          python test_bot.py
+          python test/test_bot.py
