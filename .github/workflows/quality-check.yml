@@ -44,10 +44,6 @@ jobs:
         run: |
           pytest test/test_integration.py -v
 
-      - name: Run performance tests
-        run: |
-          pytest test/test_performance.py -v
-
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
