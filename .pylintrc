@@ -1,0 +1,32 @@
+[MASTER]
+extension-pkg-allow-list=psycopg2
+jobs=0
+
+[MESSAGES CONTROL]
+disable=
+    ; C0103,  # invalid-name
+    ; C0301,  # line-too-long
+    ; W0511,  # fixme
+    ; R0903,  # too-few-public-methods
+    R0913,  # too-many-arguments
+    R0902,  # too-many-instance-attributes
+    ; C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    ; C0116,  # missing-function-docstring
+
+[BASIC]
+good-names=
+    i,j,k,ex,Run,_,
+    db,id,cfg,bot
+
+[DESIGN]
+max-args=8
+max-attributes=15
+
+[FORMAT]
+max-line-length=120
+max-module-lines=1000
+
+[REPORTS]
+output-format=colorized
+reports=no

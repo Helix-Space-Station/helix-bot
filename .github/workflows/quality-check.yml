@@ -1,0 +1,70 @@
+name: Quality Check
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.6'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio coverage
+
+      - name: Create test environment file
+        run: |
+          cat > .env << EOF
+          TOKEN=test_token
+          DB_DATABASE_SS14_MAIN=test_db
+          DB_USER_SS14_MAIN=test_user
+          DB_PASSWORD_SS14_MAIN=test_password
+          DB_HOST_SS14_MAIN=localhost
+          DB_PORT_SS14_MAIN=5432
+          EOF
+
+      - name: Run static analysis
+        run: |
+          python test/static_analysis.py
+
+      - name: Run unit tests
+        run: |
+          pytest test/test_units.py -v
+
+      - name: Run integration tests
+        run: |
+          pytest test/test_integration.py -v
+
+      - name: Run performance tests
+        run: |
+          pytest test/test_performance.py -v
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov/
+          retention-days: 30
+
+      - name: Basic health check (fallback)
+        if: always()
+        run: |
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          try:
+              from bot_init import bot, cfg, ss14_db
+              print('✅ Basic health check passed')
+          except Exception as e:
+              print(f'❌ Basic health check failed: {e}')
+              sys.exit(1)
+          "
