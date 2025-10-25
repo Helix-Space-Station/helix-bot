@@ -33,8 +33,6 @@ jobs:
         pylint --output-format=colorized \
               --rcfile=.pylintrc \
               --fail-under=7.0 \
-              --disable=all \
-              --enable=error \
               bot_init.py main.py config.py modules/
 
     - name: Generate pylint report

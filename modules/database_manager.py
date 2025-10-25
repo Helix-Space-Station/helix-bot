@@ -134,7 +134,7 @@ class DatabaseManagerSS14:
         LEFT JOIN admin_rank ar ON a.admin_rank_id = ar.admin_rank_id
         ORDER BY p.last_seen_user_name ASC
         """
-        
+
         try:
             with self._get_connection(db_name) as conn:
                 with conn.cursor() as cursor:
@@ -704,7 +704,7 @@ class DatabaseManagerSS14:
                 """
                 cursor.execute(query, (nickname,))
                 result = cursor.fetchone()
-                
+
                 return result
 
     def fetch_admin_rank(self, admin_rank, db_name='main'):
@@ -725,7 +725,7 @@ class DatabaseManagerSS14:
                 """
                 cursor.execute(query, (admin_rank,))
                 result = cursor.fetchone()
-                
+
                 return result
 
     def fetch_admin_ranks(self, db_name='main'):
@@ -744,7 +744,7 @@ class DatabaseManagerSS14:
                 """
                 cursor.execute(query)
                 result = cursor.fetchall()
-                
+
                 return result
 
     def fetch_admins(self, db_name='main'):
