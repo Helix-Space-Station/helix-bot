@@ -1,16 +1,18 @@
 # Helix Bot
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/disnake-Library-5865F2?logo=discord&logoColor=white" alt="disnake">
-  <img src="https://img.shields.io/badge/python--dotenv-Environment-orange" alt="python-dotenv">
-  <img src="https://img.shields.io/badge/aiohttp-Async%20HTTP-green" alt="aiohttp">
-  <img src="https://img.shields.io/badge/requests-HTTP%20Client-005571" alt="requests">
-  <img src="https://img.shields.io/badge/SS14-Integration-yellowgreen" alt="SS14 Integration">
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/disnake-Library-5865F2?logo=discord&logoColor=white">
+  <img src="https://img.shields.io/badge/python--dotenv-Environment-orange">
+  <img src="https://img.shields.io/badge/requests-HTTP%20Client-005571">
+  <img src="https://img.shields.io/badge/SS14-Integration-yellowgreen">
+  <img src="https://img.shields.io/badge/psycopg2-PostgreSQL-336791">
 </p>
-<p align="left">
-  <img src="https://img.shields.io/github/license/Helix-Space-Station/helix-bot" alt="License">
-  <img src="https://img.shields.io/github/last-commit/Helix-Space-Station/helix-bot" alt="Last Commit">
-  <img src="https://img.shields.io/github/languages/top/Helix-Space-Station/helix-bot" alt="Top Language">
+
+<p align="center">
+  <img src="https://img.shields.io/github/license/Helix-Space-Station/helix-bot">
+  <img src="https://img.shields.io/github/last-commit/Helix-Space-Station/helix-bot">
+  <img src="https://img.shields.io/github/languages/top/Helix-Space-Station/helix-bot">
 </p>
 
 ### 👤 Автор: [Schrödinger](https://github.com/Schrodinger71)

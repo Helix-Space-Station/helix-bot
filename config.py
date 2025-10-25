@@ -1,6 +1,7 @@
 import os
 
 import dotenv
+import pytz
 
 dotenv.load_dotenv()
 
@@ -22,6 +23,8 @@ class Config:
     GUILD_ID = 1429449485536202795
     MY_USER_ID = 328502766622474240
     LOG_CHANNEL_ID = 1429449486157090888
+    
+    MOSCOW_TIMEZONE = pytz.timezone("Europe/Moscow")
 
     DISCORD_BOT_TOKEN = get_env_variable("DISCORD_BOT_TOKEN")
     

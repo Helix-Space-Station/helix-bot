@@ -1,6 +1,6 @@
 import disnake
 from disnake import TextInputStyle
-from disnake.ext import tasks, commands
+from disnake.ext import commands, tasks
 from disnake.ui import TextInput
 
 # from bot_init import ss14_db

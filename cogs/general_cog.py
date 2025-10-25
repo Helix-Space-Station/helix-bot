@@ -1,5 +1,6 @@
 from disnake.ext import commands
 
+
 class GeneralCog(commands.Cog, name="General"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
