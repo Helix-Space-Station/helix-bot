@@ -30,8 +30,8 @@ class TestDatabaseManager:
     def test_missing_database_connection(self):
         """Test error handling for missing database"""
         db_manager = DatabaseManagerSS14()
-        
-        with pytest.raises(ValueError, match="База данных 'main' не настроена"):
+
+        with pytest.raises(ValueError, match="Unknown database name: main"):
             db_manager._get_connection('main')
 
 class TestConfig:
